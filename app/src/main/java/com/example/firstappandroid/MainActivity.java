@@ -15,7 +15,7 @@ import Configuracion.Transacciones;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText nombres, apellido, edad, correo;
+    EditText nombres, apellidos, edad, correo;
     Button enviar;
 
     @Override
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         nombres = findViewById(R.id.txtNombre);
-        apellido = findViewById(R.id.txtApellido);
+        apellidos = findViewById(R.id.txtApellido);
         edad = findViewById(R.id.txtEdad);
         correo = findViewById(R.id.txtEmail);
         enviar = findViewById(R.id.btnEnviar);
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         ContentValues valores = new ContentValues();
         valores.put(Transacciones.nombres, nombres.getText().toString());
-        valores.put(Transacciones.apellidos, apellido.getText().toString());
+        valores.put(Transacciones.apellidos, apellidos.getText().toString());
         valores.put(Transacciones.edad, edad.getText().toString());
         valores.put(Transacciones.correo, correo.getText().toString());
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Limpia los campos después de la inserción
         nombres.setText("");
-        apellido.setText("");
+        apellidos.setText("");
         edad.setText("");
         correo.setText("");
     }
