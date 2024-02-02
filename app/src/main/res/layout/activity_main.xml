@@ -28,7 +28,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="185dp"
         android:layout_marginEnd="30dp"
-        android:background="#FF5733"
+        android:background="@color/md_theme_dark_inversePrimary"
         android:text="Enviar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
