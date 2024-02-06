@@ -2,9 +2,12 @@ package com.example.firstappandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -34,8 +37,31 @@ public class ActivityList extends AppCompatActivity {
 
         ObtenerDatos();
 
-        ArrayAdapter adp = new ArrayAdapter(this, android.R.layout.simple_list_item_activated_1, Arreglo);
+        ArrayAdapter<String> adp = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, Arreglo);
         listPersona.setAdapter(adp);
+
+        // Configura el clic de los elementos en el ListView
+        listPersona.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Obtiene la persona seleccionada
+                Personas personaSeleccionada = lista.get(position);
+
+                // Crea un Intent para abrir la actividad de edición
+                Intent intent = new Intent(ActivityList.this, MainActivity.class);
+
+                // Pasa la información de la persona seleccionada a la actividad de edición
+                intent.putExtra("id", personaSeleccionada.getId());
+                intent.putExtra("nombres", personaSeleccionada.getNombres());
+                intent.putExtra("apellidos", personaSeleccionada.getApellidos());
+                intent.putExtra("edad", personaSeleccionada.getEdad());
+                intent.putExtra("correo", personaSeleccionada.getCorreo());
+                intent.putExtra("direccion", personaSeleccionada.getDireccion());
+
+                // Inicia la actividad de edición
+                startActivity(intent);
+            }
+        });
     }
 
     private void ObtenerDatos() {
@@ -53,6 +79,7 @@ public class ActivityList extends AppCompatActivity {
             person.setApellidos(cursor.getString(2));
             person.setEdad(cursor.getInt(3));
             person.setCorreo(cursor.getString(4));
+            person.setDireccion(cursor.getString(5));
 
             lista.add(person);
         }
@@ -65,7 +92,12 @@ public class ActivityList extends AppCompatActivity {
     private void FillData() {
         Arreglo = new ArrayList<String>();
         for (int i = 0; i < lista.size(); i++) {
-            Arreglo.add(lista.get(i).getId() + " - " + lista.get(i).getNombres() + " - " + lista.get(i).getApellidos());
+            Personas persona = lista.get(i);
+            String datosPersona = persona.getNombres() + " " + persona.getApellidos() + "\n"
+                    + "Edad: " + persona.getEdad() + "\n"
+                    + "Correo: " + persona.getCorreo() + "\n"
+                    + "Dirección: " + persona.getDireccion();
+            Arreglo.add(datosPersona);
         }
     }
 }

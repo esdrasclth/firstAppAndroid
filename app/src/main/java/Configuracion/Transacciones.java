@@ -3,7 +3,7 @@ package Configuracion;
 public class Transacciones {
 
     // Nombre de la base de datos
-    public static final String DBName = "PM012024";
+    public static final String DBName = "DBQuizPerson";
 
     // Creacion de las tablas de las bases de datos
     public static final String TablePersonas = "personas";
@@ -14,6 +14,7 @@ public class Transacciones {
     public static final String apellidos = "apellidos";
     public static final String edad = "edad";
     public static final String correo = "correo";
+    public static final String direccion = "direccion";
 
     // Creación de la sentencia SQL para crear la tabla personas
     public static final String CreateTablePersonas = "CREATE TABLE " + TablePersonas + " ("
@@ -21,7 +22,8 @@ public class Transacciones {
             + nombres + " TEXT, "
             + apellidos + " TEXT, "
             + edad + " INTEGER, "
-            + correo + " TEXT);";
+            + correo + " TEXT, "
+            + direccion + " TEXT);";
 
     // Sentencia SQL para eliminar la tabla personas
     public static final String DropTablePersonas = "DROP TABLE IF EXISTS " + TablePersonas + ";";

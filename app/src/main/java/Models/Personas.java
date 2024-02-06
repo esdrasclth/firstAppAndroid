@@ -7,13 +7,15 @@ public class Personas {
     private String apellidos;
     private Integer edad;
     private String correo;
+    private String direccion;
 
-    public Personas(Integer id, String nombres, String apellidos, Integer edad, String correo) {
+    public Personas(Integer id, String nombres, String apellidos, Integer edad, String correo, String direccion) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.edad = edad;
         this.correo = correo;
+        this.direccion = direccion;
     }
 
     public Personas() {
@@ -57,5 +59,13 @@ public class Personas {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 }
