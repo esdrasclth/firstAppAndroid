@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -27,11 +28,52 @@ public class ActivityList extends AppCompatActivity {
 
     ArrayList<String> Arreglo;
 
+    private SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        // Inicialización del SearchView
+        searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Filtra los resultados según la consulta ingresada por el usuario
+                ArrayList<String> resultados = new ArrayList<>();
+                for (String item : Arreglo) {
+                    if (item.toLowerCase().contains(query.toLowerCase())) {
+                        resultados.add(item);
+                    }
+                }
+
+                // Actualiza el adaptador del ListView con los resultados de la búsqueda
+                ArrayAdapter<String> adp = new ArrayAdapter<>(ActivityList.this, android.R.layout.simple_list_item_activated_1, resultados);
+                listPersona.setAdapter(adp);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Filtra los resultados en tiempo real mientras el usuario escribe en el SearchView
+                ArrayList<String> resultados = new ArrayList<>();
+                for (String item : Arreglo) {
+                    if (item.toLowerCase().contains(newText.toLowerCase())) {
+                        resultados.add(item);
+                    }
+                }
+
+                // Actualiza el adaptador del ListView con los resultados filtrados
+                ArrayAdapter<String> adp = new ArrayAdapter<>(ActivityList.this, android.R.layout.simple_list_item_activated_1, resultados);
+                listPersona.setAdapter(adp);
+
+                return true;
+            }
+        });
+
+        // Inicialización de la conexión SQLite
         conexion = new SQLiteConexion(this, Transacciones.DBName, null, 1);
         listPersona = (ListView) findViewById(R.id.idListPersona);
 
@@ -64,6 +106,7 @@ public class ActivityList extends AppCompatActivity {
         });
     }
 
+
     private void ObtenerDatos() {
         SQLiteDatabase db = conexion.getReadableDatabase();
         Personas person = null;
@@ -88,7 +131,6 @@ public class ActivityList extends AppCompatActivity {
 
         FillData();
     }
-
     private void FillData() {
         Arreglo = new ArrayList<String>();
         for (int i = 0; i < lista.size(); i++) {

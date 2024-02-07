@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultado > 0) {
             Toast.makeText(getApplicationContext(), "Registro actualizado correctamente", Toast.LENGTH_LONG).show();
 
-            // Redirige a ActivityList y limpia las otras actividades en la pila
+            // Redirige a ActivityList
             Intent intentActivityList = new Intent(this, ActivityList.class);
             intentActivityList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intentActivityList);
